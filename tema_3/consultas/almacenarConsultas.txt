@@ -1,0 +1,12 @@
+SELECT nombre, pvp FROM productos LIMIT 5
+SELECT nombre, pvp FROM productos WHERE pvp<100 ORDER BY pvp asc
+SELECT nombre, pvp FROM productos WHERE pvp>=100 AND pvp<=300 ORDER BY pvp ASC
+SELECT nombre FROM productos WHERE nombre LIKE '%Canon%'
+SELECT nombre, familia FROM productos WHERE familia LIKE "CAMARA" or familia LIKE "TV" // SELECT nombre, familia FROM productos WHERE familia LIKE "CAMARA" or familia LIKE "TV"
+SELECT nombre, tlf from tiendas where tlf IS NULL
+SELECT COUNT(*) from productos
+SELECT ROUND(AVG(pvp),2) FROM productos
+SELECT MIN(pvp), MAX(pvp) FROM productos
+SELECT familia, COUNT(*) as Cantidad FROM productos GROUP BY familia
+SELECT familia, COUNT(*) as Cantidad FROM productos GROUP BY familia HAVING(Cantidad)>=3
+SELECT p.nombre, p.pvp, f.nombre from productos p INNER JOIN familias f ON p.familia = f.cod 
