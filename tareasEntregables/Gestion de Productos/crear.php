@@ -9,7 +9,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 
-<body>
+<body class="bg-secondary text-white">
     <h1 class="text-center">CREAR PRODUCTO</h1>
     <div class="container">
         <div class="row justify-content-center">
