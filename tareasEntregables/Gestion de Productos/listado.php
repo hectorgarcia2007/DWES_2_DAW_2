@@ -24,25 +24,29 @@
         </tr>
 
         <?php
-        $conProyecto = require_once('conexion.php');
-        $stmt = $conProyecto->stmt_init();
-        $stmt = $conProyecto->prepare(
-            'SELECT id, nombre FROM productos'
-        );
-        $stmt->bind_result($productoId, $productoNombre);
+        try {
+            $conProyecto = require_once('conexion.php');
+            $stmt = $conProyecto->stmt_init();
+            $stmt = $conProyecto->prepare(
+                'SELECT id, nombre FROM productos'
+            );
+            $stmt->bind_result($productoId, $productoNombre);
 
 
-        $stmt->execute();
-        // Mostramos los resultados
-        while ($stmt->fetch()) {
-            echo "<tr>";
-            echo "<td>$productoId</td>";
-            echo "<td>$productoNombre</td>";
-            echo "<td><form action='borrar.php' method='POST'>";
-            echo "<input type='hidden' name='id' value='$productoId'>";
-            echo "<input type='submit' class='btn btn-danger' value='Eliminar'>";
-            echo "</form></td>";
-            echo "</tr>";
+            $stmt->execute();
+            // Mostramos los resultados
+            while ($stmt->fetch()) {
+                echo "<tr>";
+                echo "<td>$productoId</td>";
+                echo "<td>$productoNombre</td>";
+                echo "<td><form action='borrar.php' method='POST'>";
+                echo "<input type='hidden' name='id' value='$productoId'>";
+                echo "<input type='submit' class='btn btn-danger' value='Eliminar'>";
+                echo "</form></td>";
+                echo "</tr>";
+            }
+        } catch (mysqli_sql_exception $e) {
+            echo "<p>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
         }
 
         ?>

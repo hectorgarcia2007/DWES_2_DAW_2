@@ -34,15 +34,19 @@
                             <label for="familia">Familia</label>
                             <select id="familia" name="familia" required class="form-control">
                                 <?php
-                                $conProyecto = require_once('conexion.php');
-                                $stmt = $conProyecto->stmt_init();
-                                $stmt = $conProyecto->prepare(
-                                    'SELECT cod, nombre FROM familias'
-                                );
-                                $stmt->bind_result($familiaId, $familiaNombre);
-                                $stmt->execute();
-                                while ($stmt->fetch()) {
-                                    echo "<option value='$familiaId'>$familiaNombre</option>";
+                                try {
+                                    $conProyecto = require_once('conexion.php');
+                                    $stmt = $conProyecto->stmt_init();
+                                    $stmt = $conProyecto->prepare(
+                                        'SELECT cod, nombre FROM familias'
+                                    );
+                                    $stmt->bind_result($familiaId, $familiaNombre);
+                                    $stmt->execute();
+                                    while ($stmt->fetch()) {
+                                        echo "<option value='$familiaId'>$familiaNombre</option>";
+                                    }
+                                } catch (mysqli_sql_exception $e) {
+                                    echo "<p>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
                                 }
                                 ?>
                             </select>
@@ -69,8 +73,6 @@
             $stmt->bind_param("sssis", $_POST["nombre"], $_POST["nombreCorto"], $_POST["descripcion"], $_POST["precio"], $_POST["familia"]);
             $stmt->execute();
             $stmt->close();
-
-
         } catch (mysqli_sql_exception $e) {
             echo "<p>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
         }
